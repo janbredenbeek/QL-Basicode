@@ -1,0 +1,10 @@
+* Linker file for BASICODE-3 RAM version
+
+INPUT    bcrom_rel
+INPUT    bcload_rel
+INPUT    bcsave_rel
+INPUT    bccas_rel
+INPUT    bcsub_rel
+FILETYPE 0
+DATA     0
+
