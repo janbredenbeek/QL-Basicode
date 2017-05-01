@@ -1,5 +1,11 @@
-* BASICODE-3 CASSETTE LOAD/SAVE ROUTINES
-* MAY 10, 1987
+* BASICODE 3 for the Sinclair QL
+* Part 4: Cassette read/write routines
+* Copyright (C) 1986, 1987, 2017 by Jan Bredenbeek
+* Released under the GNU Public License, 2017
+
+* Change history:
+*
+* 19870510  Start of work...
 
          INCLUDE  MACRO_LIB
          INCLUDE  QDOS_IN_MAC
