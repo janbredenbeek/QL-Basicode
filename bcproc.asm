@@ -4,6 +4,8 @@
 * Released under GNU Public License in 2017
 
 * Changelog:
+* 20170501: Added PX_ASPRT command to adjust graphics scaling for pixel aspect
+*           ratio (SMSQ/E only).
 * 20170313: Allow for ROM/RAM versions using QMAC conditional assembly dir's
 *           NOTE: This file should now be INCLUDEd from the BSCRAM_ASM or
 *           BSCROM_ASM respectively. BSCROM should be set to 1 if assembling 
@@ -1310,5 +1312,3 @@ PX_ASPRT  BSR       GET1FP          Get exactly 1 float
 PXA_RTS   RTS
 PXA_NI    MOVEQ     #ERR.NI,D0      sorry folks - this only works on SMSQ/E
           RTS
-
-
