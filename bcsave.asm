@@ -1,5 +1,7 @@
-* BASICODE-3 PART 3
-* CONVERT-TO-BASICODE ROUTINE
+* BASICODE 3 for the Sinclair QL
+* Part 3: BCSAVE (S*BASIC to BASICODE routine)
+* Copyright (C) 1986, 1987, 2017 by Jan Bredenbeek
+* Released under the GNU Public License, 2017
 
          INCLUDE  MACRO_LIB
          INCLUDE  QDOS_IN_MAC
