@@ -5,6 +5,7 @@
 
 * Revision history:
 
+* 20170501: TR_SKPSP is now a subroutine
 * 20170425: Deleting lines above 1000 doesn't work in SMSQ/E so replaced this
 *           code by an error message. Corrected line number check and changed
 *           trailing space check after tokens
