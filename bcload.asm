@@ -5,6 +5,7 @@
 
 * Revision history:
 
+* 20170607: Reverted to old trailing space test (JS needs space after keyword)
 * 20170501: TR_SKPSP is now a subroutine
 * 20170425: Deleting lines above 1000 doesn't work in SMSQ/E so replaced this
 *           code by an error message. Corrected line number check and changed
@@ -328,14 +329,14 @@ BCL_SETP  SUBA.L    A0,A0
 
 * Here we have plain old QDOS or Minerva so calling pf_liste is safe
 
-BCL_DEL   MOVE.L    BV.NXLIN(A6),-(A7)
-          MOVE.W    BV.STOPN(A6),-(A7)
-          MOVE.W    #1000,D4        Delete lines 1000 to end
+*BCL_DEL   MOVE.L    BV.NXLIN(A6),-(A7)
+*          MOVE.W    BV.STOPN(A6),-(A7)
+BCL_DEL   MOVE.W    #1000,D4        Delete lines 1000 to end
           MOVE.W    #$7FFF,D6
           MOVE.W    $138,A2
           JSR       $4000(A2)
-          MOVE.W    (A7)+,BV.NXLIN(A6)
-          MOVE.L    (A7)+,BV.STOPN(A6)
+*          MOVE.W    (A7)+,BV.NXLIN(A6) ; caused 'not complete' on JS/Minerva
+*          MOVE.L    (A7)+,BV.STOPN(A6)
 
 * Main translation loop. Each line is read in from input until EOF reached.
 
@@ -652,19 +653,13 @@ COPY_TK   MOVE.B    (A3)+,D4            now copy all token characters
 
 * 20170425: changed test for trailing spaces. We now consider the character
 *           after the token and add a trailing space if it's alphanumeric.
+* 20170607: Reverted back to old test as JS and earlier needs a space after a
+*           keyword (e.g. DATA"test" would be rejected as 'bad line')
+*           unfortunately this means that keywords which are really procedures
+*           (e.g. PRINT) get a redundant trailing space :-(
 
-* TST_TRSP  CMPI.B    #$99,D5           old test: $80-$98 got no trailing space
-
-TST_TRSP  MOVE.B    (A5),D4             get character after token
-          BMI.S     P2_TRSP             always add space between tokens
-          CMPI.B    #'.',D4             a dot is also numeric...
-          BEQ.S     P2_TRSP             ...else we break SBASIC names!
-          SUBI.B    #'0',D4
-          CMPI.B    #9,D4               numeric?
-          BLS.S     P2_TRSP             yes, add space
-          SUBI.B    #'A'-'0',D4
-          CMPI.B    #'Z'-'A',D4         alphabetic?
-          BHI.S     P2_TK2              no
+TST_TRSP  CMPI.B    #$99,D5             old test: $80-$98 got no trailing space
+          BLO.S     P2_TK2
 P2_TRSP   MOVEQ     #$20,D4             else, add trailing space
           BSR       IN_BAS
 P2_TK2    CMPI.B    #$A3,D5             test for 'ON'
