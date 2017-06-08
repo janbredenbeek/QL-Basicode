@@ -506,7 +506,7 @@ CURS_AGN  MOVE.B    D7,D0
           TRAP      #4
           QDOS      SD.CHENQ            This activates pending newline
           MOVE.L    (A6),A1
-          MOVEM.W   (A6,A1.L),D1-D2     position cursor
+          MOVEM.W   4(A6,A1.L),D1-D2    position cursor
           QDOS      SD.POS
           TST.L     D0
           BEQ       CURS_AGN            Loop back for another try
